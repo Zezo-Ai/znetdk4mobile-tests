@@ -18,8 +18,8 @@
  * --------------------------------------------------------------------
  * Core Testing class
  *
- * File version: 1.0
- * Last update: 09/07/2023
+ * File version: 1.1
+ * Last update: 03/22/2024
  */
 namespace app;
 
@@ -62,7 +62,7 @@ class TestCase {
      * the specified method to test does not exist
      */
     static public function runTests($scope = 'all') {
-        $thisClassMethods = get_class_methods(get_class());
+        $thisClassMethods = get_class_methods(__CLASS__);
         $response = new \Response();
         $className = get_called_class();
         $classMethods = get_class_methods($className);
