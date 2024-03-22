@@ -17,8 +17,8 @@
  * --------------------------------------------------------------------
  * ZnetDK Javascript library for mobile page layout
  *
- * File version: 1.0
- * Last update: 10/31/2023
+ * File version: 1.2
+ * Last update: 03/22/2024
  */
 /* global z4m, Promise */
 
@@ -310,8 +310,8 @@ z4mTestCases = {
                         && result.indexOf('</html>') > -1;
             }
         },{
-            name: 'E - Fetch GET error 404 (not found)',//9
-            description: 'Testing if GET request to a missing page returns status 404 and expected hterror view.',
+            name: 'E - Fetch GET error 403 (missing page)',//9
+            description: 'Testing if GET request to a missing page \'byebye\' returns status 403 and expected \'httperror.php\' view.',
             testFn: async function() {                
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url.replace('index.php', '') + 'byebye';
@@ -319,14 +319,14 @@ z4mTestCases = {
                     method: 'GET',
                     credentials: 'same-origin'
                 }), result = await request.text();
-                return request.status === 404
+                return request.status === 403
                         && typeof result === 'string'
-                        && result.indexOf('HTTP Error 404!') > -1
+                        && result.indexOf('HTTP Error 403!') > -1
                         && result.indexOf('</html>') > -1;
             }
         },{
             name: 'E - Fetch GET error 403 (forbidden)',//10
-            description: 'Testing if GET request to a forbidden page returns status 403 and expected hterror view.',
+            description: 'Testing if GET request to a forbidden page returns status 403 and expected \'httperror.php\' view.',
             testFn: async function() {                
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url.replace('index.php', '') + 'engine/';
@@ -738,9 +738,8 @@ z4mTestCases = {
                             resolve(false);
                         }
                         setTimeout(function(){
-                            resolve(z4m.messages.getContainer()
-                                .find('div.w3-panel.w3-card.w3-animate-bottom.w3-green')
-                                .text().trim() === 'Form submit succeeded.');
+                            const messageReturned = $('body .z4m-snackbar').text().trim();
+                            resolve(context.areValuesEqual(messageReturned, 'Form submit succeeded.'));
                         }, 500);
                     });
                     formObj.setInputValue('input_text', 'Hello John');
