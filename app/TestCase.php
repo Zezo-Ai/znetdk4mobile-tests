@@ -18,8 +18,8 @@
  * --------------------------------------------------------------------
  * Core Testing class
  *
- * File version: 1.1
- * Last update: 03/22/2024
+ * File version: 1.2
+ * Last update: 08/08/2024
  */
 namespace app;
 
@@ -194,6 +194,8 @@ class TestCase {
             'id' => $infos['user_id'],
             'login' => self::TEST_USER_LOGIN,
             'password' => $passwordInClear,
+            'email' => $infos['user_email'],
+            'name' => $infos['user_name'],
             'profile_name' => self::TEST_PROFILE_NAME,
             'profile_id' => $profileId
         ];

@@ -1,7 +1,7 @@
 <?php
 /**
  * ZnetDK, Starter Web Application for rapid & easy development
- * See official website http://www.znetdk.fr
+ * See official website https://www.znetdk.fr
  * Copyright (C) 2023 Pascal MARTINEZ (contact@znetdk.fr)
  * License GNU GPL http://www.gnu.org/licenses/gpl-3.0.html GNU GPL
  * --------------------------------------------------------------------
@@ -18,8 +18,8 @@
  * --------------------------------------------------------------------
  * Test of the UserSession ZnetDK core class
  *
- * File version: 1.1
- * Last update: 11/01/2023
+ * File version: 1.2
+ * Last update: 08/09/2024
  */
 
 namespace app\tests;
@@ -28,7 +28,11 @@ class TestUserSession extends TestCase {
     
     // Called once after testing all methods
     static protected function afterAllTests() {
+        $uiToken = \UserSession::getUIToken();
+        // Session data is cleared
         \UserSession::clearUserSession();
+        // UI Token restored in session
+        $_SESSION[\General::getAbsoluteURI() . ZNETDK_APP_NAME]['ui_token'] = $uiToken;
     }
 
     static protected function isAuthenticated() {

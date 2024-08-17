@@ -1,6 +1,6 @@
 /**
  * ZnetDK, Starter Web Application for rapid & easy development
- * See official website http://www.znetdk.fr
+ * See official website https://www.znetdk.fr
  * Copyright (C) 2019 Pascal MARTINEZ (contact@znetdk.fr)
  * License GNU GPL http://www.gnu.org/licenses/gpl-3.0.html GNU GPL
  * --------------------------------------------------------------------
@@ -17,8 +17,8 @@
  * --------------------------------------------------------------------
  * ZnetDK Javascript library for mobile page layout
  *
- * File version: 1.2
- * Last update: 03/22/2024
+ * File version: 1.3
+ * Last update: 08/07/2024
  */
 /* global z4m, Promise */
 
@@ -1402,6 +1402,13 @@ z4mTestCases = {
                     'z4mtsts_server_ctl', 'testresponse');
             }
         }, {
+            name: 'N - Controller\\Security methods',
+            description: 'PHP controller\\Security class methods of ZnetDK',
+            testFn: async function(context) {
+                return await context.customServerSideCore.run(
+                    'z4mtsts_server_ctl', 'testcontrollersecurity');
+            }
+        }, {
             name: 'N - Convert methods',
             description: 'PHP Convert class methods of ZnetDK',
             testFn: async function(context) {
@@ -1479,6 +1486,13 @@ z4mTestCases = {
             testFn: async function(context) {
                 return await context.customServerSideCore.run(
                     'z4mtsts_server_ctl', 'testcontrollerusers');
+            }
+        }, {
+            name: 'N - User methods',
+            description: 'PHP User class methods of ZnetDK',
+            testFn: async function(context) {
+                return await context.customServerSideCore.run(
+                    'z4mtsts_server_ctl', 'testuser');
             }
         }, {
             name: 'N - controller\\Profiles methods',

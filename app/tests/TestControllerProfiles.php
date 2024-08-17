@@ -18,8 +18,8 @@
  * --------------------------------------------------------------------
  * Test of the Controller\Profiles ZnetDK core class
  *
- * File version: 1.0
- * Last update: 09/09/2023
+ * File version: 1.1
+ * Last update: 08/14/2024
  */
 
 namespace app\tests;
@@ -51,7 +51,7 @@ class TestControllerProfiles extends TestCase {
         
         // TEST 3: no auth, profiles view menu item is declared in the menu.php
         $extraParameters3 = [
-            'id' => $credentials2['id']/*,
+            'id' => $credentials2['profile_id']/*,
             'XDEBUG_SESSION_START' => 'netbeans-xdebug' */
         ];
         $jsonResponse3 = \General::callRemoteAction($swUrl, $method, $controller, $action, $extraParameters3);
@@ -60,13 +60,14 @@ class TestControllerProfiles extends TestCase {
         
         // TEST 4: no auth, menu item is missing in the menu.php
         $extraParameters4 = [
-            'id' => $credentials2['id'],
+            'id' => $credentials2['profile_id'],
             'no_profiles_view' => 'true'/*,
             'XDEBUG_SESSION_START' => 'netbeans-xdebug'*/
         ];
         $jsonResponse4 = \General::callRemoteAction($swUrl, $method, $controller, $action, $extraParameters4);
         
         self::removeTestUser();
+        
         return $test1 && $jsonResponse2 === FALSE && $test3 && $jsonResponse4 === FALSE;
     }
     

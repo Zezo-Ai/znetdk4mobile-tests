@@ -19,5 +19,5 @@ define('LC_HEAD_TITLE', 'Testing APP...');
 /* Footer labels */
 define('LC_FOOTER_LEFT', 'Version 1.0');
 define('LC_FOOTER_CENTER', 'Developed with ZnetDK');
-define('LC_FOOTER_RIGHT', '&copy; 2023');
+define('LC_FOOTER_RIGHT', '&copy; 2024');
 
