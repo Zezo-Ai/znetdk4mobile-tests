@@ -14,7 +14,7 @@ define('LC_PAGE_TITLE', 'ZnetDK 4 Mobile');
 define('LC_HEAD_TITLE', 'Testing APP...');
 
 /* Heading images */
-//define('LC_HEAD_IMG_LOGO', ZNETDK_APP_URI.'images/logo.png');
+define('LC_HEAD_IMG_LOGO', ZNETDK_ROOT_URI .'engine/public/images/logoznetdk-dark.svg');
 
 /* Footer labels */
 define('LC_FOOTER_LEFT', 'Version 1.0');

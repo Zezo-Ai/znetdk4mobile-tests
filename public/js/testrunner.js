@@ -17,8 +17,8 @@
  * --------------------------------------------------------------------
  * ZnetDK Javascript library for mobile page layout
  *
- * File version: 1.0
- * Last update: 03/24/2023
+ * File version: 1.1
+ * Last update: 06/29/2025
  */
 /* global Promise, z4mTestCases */
 z4mTestRunner = (function() {
@@ -68,12 +68,7 @@ z4mTestRunner = (function() {
         var valuesNotEqual = [];
         values.forEach(function(value, index){
             if (index > 0 && index%2 !== 0 && value !== values[index-1]) {
-                let obtainedValue = typeof values[index-1] === 'string'
-                    ? "'" + values[index-1] + "'"
-                    : (values[index-1]).toString();
-                let expectedValue = typeof value === 'string'
-                    ? "'" + value + "'" : value.toString();
-                valuesNotEqual.push(obtainedValue + ' !== ' + expectedValue);
+                valuesNotEqual.push(getForDisplay(values[index-1]) + ' !== ' + getForDisplay(value));
             }
         });
         return {
@@ -81,6 +76,21 @@ z4mTestRunner = (function() {
             failed: valuesNotEqual.length > 0
                 ? ' [' + valuesNotEqual.join(', ') + ']' : ''
         };
+        function getForDisplay(value) {
+            const valType = value === null ? 'null' : typeof value;
+            switch (valType) {
+                case 'null':
+                case 'undefined':
+                    return valType;
+                case 'string':
+                    return "'" + value + "'";
+                case 'boolean':
+                case 'object':                    
+                    return value.toString();
+                default:
+                    return value;
+            }
+        }
     }
     function _pause(delayInMs) {
         return new Promise((resolve) => setTimeout(resolve, delayInMs));
@@ -163,7 +173,7 @@ z4mTestRunner = (function() {
             _reset();
             const tests = _getTests(testCaseDomain, testCaseIndex);
             if (tests.length === 0) {
-                console.error('No test case found!', testCaseDomain, testCaseIndex);
+                throw new Error('No test case found! domain=' + testCaseDomain + ', test case index=' + testCaseIndex);
             }
             var context = {
                 UIContainerId: _UIContainerId,
@@ -230,7 +240,7 @@ z4mTestRunner = (function() {
                     _addError('Tests canceled by user.');
                     break;
                 } else if (isOk === 'timeout') { // Timeout
-                    test.error = 'Execution time exceeded.';
+                    test.error = 'Execution time exceeded (' + _testCaseExecTimeout + ' ms).';
                     _addError(test);
                     _runState.error++;
                 } else if (isOk === 'error') { // JS Error

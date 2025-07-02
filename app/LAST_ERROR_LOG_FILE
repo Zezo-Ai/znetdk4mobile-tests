@@ -1,34 +1,53 @@
-[2024-03-22 21:35:57] CORE - E_ERROR - Uncaught Error: Call to undefined function unknownFunction() in C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\view\z4mtsts_testview2.php:1Stack trace:#0 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\Response.php(304): include()#1 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\MainController.php(181): Response->output()#2 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\Layout.php(248): MainController::renderView('z4mtsts_testvie...', 'show')#3 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\layout\mobile.php(130): Layout::renderCustomContent('z4mtsts_testvie...')#4 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\Layout.php(130): include('C:\\PMCLDEV\\IDE\\...')#5 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\MainController.php(152): Layout::render()#6 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\index.php(92): MainController::doAction()#7 {main}  thrown - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\view\z4mtsts_testview2.php(1)
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - PRM-004: the 'CFG_VIEW_PAGE_RELOAD' parameter can't be set to TRUE while the 'CFG_AUTHENT_REQUIRED' parameter is set to TRUE! Please, review the application settings.
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - PRM-005: the 'CFG_VIEW_PAGE_RELOAD' parameter can't be set to TRUE while the 'CFG_VIEW_PRELOAD' parameter is set to TRUE! Please, review the application settings.
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - PRM-006: the 'CFG_VIEW_PAGE_RELOAD' parameter can't be set to TRUE while the 'CFG_PAGE_LAYOUT' parameter is set to 'office'! Please, review the application settings.
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - LAY-007: the theme named 'znetdk' does not exist!
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'resources/jquery-ui-1.10.3/themes/base/minified/jquery-ui.min.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'engine/public/themes/znetdk/theme.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'resources/primeui-1.1/production/primeui-1.1-min.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'engine/public/css/minified/primeui-min.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'engine/public/css/minified/form-min.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'engine/public/css/minified/layout-min.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'engine/public/css/minified/layout-office-min.css'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'resources/jquery/jquery-1.12.4.min.js'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'resources/jquery-ui-1.10.3/ui/minified/jquery-ui.min.js'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'resources/blockui-2.66/blockui.js'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'resources/primeui-1.1/production/primeui-1.1-min.js'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - DEP-001: dependency missing: 'engine/public/js/minified/znetdk-min.js'
-[2024-03-22 21:35:58] CORE - ZNETDK ERROR - CTL-003: the controller 'missing_controller' and the action 'ajax1' does not exist!
-[2024-03-22 21:35:58] CORE - EXCEPTION - This is a not catched exception. - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\controller\z4mtsts_ui_ctl.php(50)
-[2024-03-22 21:35:59] CORE - EXCEPTION - This is a not catched exception. - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\controller\z4mtsts_ui_ctl.php(50)
-[2024-03-22 21:35:59] CORE - E_ERROR - Uncaught Error: Call to undefined function app\controller\unknownFunction() in C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\controller\z4mtsts_ui_ctl.php:54Stack trace:#0 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\AppController.php(301): app\controller\z4mtsts_ui_ctl::action_ajax_runtime_error()#1 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\AppController.php(49): AppController::executeAction('ajax_runtime_er...')#2 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\MainController.php(108): AppController::doAction('ajax_runtime_er...')#3 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\MainController.php(142): MainController::executeAction('z4mtsts_ui_ctl', 'ajax_runtime_er...')#4 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\index.php(92): MainController::doAction()#5 {main}  thrown - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\controller\z4mtsts_ui_ctl.php(54)
-[2024-03-22 21:35:59] CORE - E_ERROR - Uncaught Error: Call to undefined function app\controller\unknownFunction() in C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\controller\z4mtsts_ui_ctl.php:54Stack trace:#0 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\AppController.php(301): app\controller\z4mtsts_ui_ctl::action_ajax_runtime_error()#1 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\AppController.php(49): AppController::executeAction('ajax_runtime_er...')#2 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\MainController.php(108): AppController::doAction('ajax_runtime_er...')#3 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\MainController.php(142): MainController::executeAction('z4mtsts_ui_ctl', 'ajax_runtime_er...')#4 C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\index.php(92): MainController::doAction()#5 {main}  thrown - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\applications\tests\app\controller\z4mtsts_ui_ctl.php(54)
-[2024-03-22 21:36:09] CORE - ZNETDK ERROR - RSP-005: the 'notExists' property does not exist!
-[2024-03-22 21:36:17] CORE - E_WARNING - file_get_contents(http://...@localhost:8083/znetdk4mobile/index.php?appl=tests&amp;control=z4mtsts_server_ctl&amp;action=required_menu_item&amp;CFG_AUTHENT_REQUIRED=true): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
- - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\General.php(679)
-[2024-03-22 21:36:18] CORE - E_WARNING - file_get_contents(http://localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
- - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\General.php(679)
-[2024-03-22 21:36:19] CORE - E_WARNING - file_get_contents(http://localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
- - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\General.php(679)
-[2024-03-22 21:36:19] CORE - E_WARNING - file_get_contents(http://localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
- - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\General.php(679)
-[2024-03-22 21:36:20] CORE - E_WARNING - file_get_contents(http://localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
- - C:\PMCLDEV\IDE\xampp\htdocs\znetdk4mobile\engine\core\General.php(679)
+AJAX ERRORS
+-----------------------------------
+INDEX = 8
+---------
+[2025-06-30 06:40:02] CORE - E_ERROR - Uncaught Error: Call to undefined function unknownFunction() in /var/www/netbeans/znetdk4mobile/applications/tests/app/view/z4mtsts_testview2.php:1Stack trace:#0 /var/www/netbeans/znetdk4mobile/engine/core/Response.php(304): include()#1 /var/www/netbeans/znetdk4mobile/engine/core/MainController.php(188): Response->output()#2 /var/www/netbeans/znetdk4mobile/engine/core/Layout.php(247): MainController::renderView()#3 /var/www/netbeans/znetdk4mobile/engine/core/layout/mobile.php(137): Layout::renderCustomContent()#4 /var/www/netbeans/znetdk4mobile/engine/core/Layout.php(130): include('...')#5 /var/www/netbeans/znetdk4mobile/engine/core/MainController.php(159): Layout::render()#6 /var/www/netbeans/znetdk4mobile/index.php(92): MainController::doAction()#7 {main}  thrown - /var/www/netbeans/znetdk4mobile/applications/tests/app/view/z4mtsts_testview2.php(1)
 
+INDEX = 11
+----------
+[2025-06-30 06:40:02] CORE - ZNETDK ERROR - PRM-004: the 'CFG_VIEW_PAGE_RELOAD' parameter can't be set to TRUE while the 'CFG_AUTHENT_REQUIRED' parameter is set to TRUE! Please, review the application settings.
+
+INDEX = 12
+----------
+[2025-06-30 06:40:02] CORE - ZNETDK ERROR - PRM-005: the 'CFG_VIEW_PAGE_RELOAD' parameter can't be set to TRUE while the 'CFG_VIEW_PRELOAD' parameter is set to TRUE! Please, review the application settings.
+
+INDEX = 13
+----------
+[2025-06-30 06:40:02] CORE - ZNETDK ERROR - PRM-006: the 'CFG_VIEW_PAGE_RELOAD' parameter can't be set to TRUE while the 'CFG_PAGE_LAYOUT' parameter is set to 'office'! Please, review the application settings.
+[2025-06-30 06:40:02] CORE - ZNETDK ERROR - LAY-002: the page layout 'layout/office.php' does not exist! 
+[2025-06-30 06:40:02] CORE - ZNETDK ERROR - CTL-002: a severe error occurred while loading the layout of the application!
+
+INDEX = 15
+----------
+[2025-06-30 06:40:02] CORE - ZNETDK ERROR - CTL-003: the controller 'missing_controller' and the action 'ajax1' does not exist!
+
+INDEX = 16
+----------
+[2025-06-30 06:40:02] CORE - EXCEPTION - This is a not catched exception. - /var/www/netbeans/znetdk4mobile/applications/tests/app/controller/z4mtsts_ui_ctl.php(50)
+
+INDEX = 17
+----------
+[2025-06-30 06:40:02] CORE - EXCEPTION - This is a not catched exception. - /var/www/netbeans/znetdk4mobile/applications/tests/app/controller/z4mtsts_ui_ctl.php(50)
+
+INDEX = 18
+----------
+[2025-06-30 06:40:02] CORE - E_ERROR - Uncaught Error: Call to undefined function app\controller\unknownFunction() in /var/www/netbeans/znetdk4mobile/applications/tests/app/controller/z4mtsts_ui_ctl.php:54Stack trace:#0 /var/www/netbeans/znetdk4mobile/engine/core/AppController.php(301): app\controller\z4mtsts_ui_ctl::action_ajax_runtime_error()#1 /var/www/netbeans/znetdk4mobile/engine/core/AppController.php(49): AppController::executeAction()#2 /var/www/netbeans/znetdk4mobile/engine/core/MainController.php(115): AppController::doAction()#3 /var/www/netbeans/znetdk4mobile/engine/core/MainController.php(149): MainController::executeAction()#4 /var/www/netbeans/znetdk4mobile/index.php(92): MainController::doAction()#5 {main}  thrown - /var/www/netbeans/znetdk4mobile/applications/tests/app/controller/z4mtsts_ui_ctl.php(54)
+
+INDEX = 19
+----------
+[2025-06-30 06:40:02] CORE - E_ERROR - Uncaught Error: Call to undefined function app\controller\unknownFunction() in /var/www/netbeans/znetdk4mobile/applications/tests/app/controller/z4mtsts_ui_ctl.php:54Stack trace:#0 /var/www/netbeans/znetdk4mobile/engine/core/AppController.php(301): app\controller\z4mtsts_ui_ctl::action_ajax_runtime_error()#1 /var/www/netbeans/znetdk4mobile/engine/core/AppController.php(49): AppController::executeAction()#2 /var/www/netbeans/znetdk4mobile/engine/core/MainController.php(115): AppController::doAction()#3 /var/www/netbeans/znetdk4mobile/engine/core/MainController.php(149): MainController::executeAction()#4 /var/www/netbeans/znetdk4mobile/index.php(92): MainController::doAction()#5 {main}  thrown - /var/www/netbeans/znetdk4mobile/applications/tests/app/controller/z4mtsts_ui_ctl.php(54)
+
+SERVERSIDECORE ERRORS
+-----------------------------------
+[2025-06-30 06:40:16] CORE - ZNETDK ERROR - RSP-005: the 'notExists' property does not exist!
+[2025-06-30 06:40:24] CORE - E_WARNING - file_get_contents(http://...@nb.localhost/znetdk4mobile/index.php?appl=tests&amp;control=z4mtsts_server_ctl&amp;action=required_menu_item&amp;CFG_AUTHENT_REQUIRED=true): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ - /var/www/netbeans/znetdk4mobile/engine/core/General.php(705)
+[2025-06-30 06:40:25] CORE - E_WARNING - file_get_contents(http://nb.localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ - /var/www/netbeans/znetdk4mobile/engine/core/General.php(705)
+[2025-06-30 06:40:26] CORE - E_WARNING - file_get_contents(http://nb.localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ - /var/www/netbeans/znetdk4mobile/engine/core/General.php(705)
+[2025-06-30 06:40:28] CORE - E_WARNING - file_get_contents(http://nb.localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ - /var/www/netbeans/znetdk4mobile/engine/core/General.php(705)
+[2025-06-30 06:40:29] CORE - E_WARNING - file_get_contents(http://nb.localhost/znetdk4mobile/index.php): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ - /var/www/netbeans/znetdk4mobile/engine/core/General.php(705)

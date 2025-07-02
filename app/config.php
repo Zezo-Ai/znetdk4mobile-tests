@@ -14,7 +14,7 @@
 define('CFG_DEFAULT_LANGUAGE','en');
 
 /** Relative path or URL of the W3CSS theme file */
-define('CFG_MOBILE_W3CSS_THEME','resources/w3css/themes/w3-theme-black.css');
+define('CFG_MOBILE_W3CSS_THEME','resources/w3css/themes/z4m-theme-dark.css');
 
 /** Specifies whether the user session expires or not
  * @return 'public'|'private' When set to 'public', the user session expires.
@@ -46,12 +46,12 @@ define('CFG_SQL_APPL_DB', 'z4m-tests-db');
  *  specially created for business needs
  * @return string For example 'app'
  */
-define('CFG_SQL_APPL_USR', 'root');
+define('CFG_SQL_APPL_USR', 'developer');
 
 /** User's password declared in the database of the application.
  * @return string For example 'password'
  */
-define('CFG_SQL_APPL_PWD', '');
+define('CFG_SQL_APPL_PWD', 'password');
 
 /** Hides the message to install App */
 define('CFG_MOBILE_INSTALL_MESSAGE_DISPLAY_AUTO', FALSE);

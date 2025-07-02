@@ -18,8 +18,8 @@
  * --------------------------------------------------------------------
  * ZnetDK 4 Mobile View: running acceptance tests 
  *
- * File version: 1.1
- * Last update: 11/01/2023
+ * File version: 1.2
+ * Last update: 06/27/2023
  */
 
 // Test Database status
@@ -54,8 +54,29 @@ if (is_null($connectionString)) {
     ZnetDK library: <b id="znetdk-library">????</b><br>
 ZnetDK version: <b><?php echo ZNETDK_VERSION; ?></b>
 </p>
-<button id="z4mtsts-bt-run" class="w3-btn w3-theme-action" type="button"><i class="fa fa-play"></i> Run</button>
-<div id="z4mtsts-console" class="w3-input w3-border w3-margin-top w3-white w3-hide"></div>
+<div class="w3-row-padding w3-stretch">
+    <div class="w3-col l2">        
+        <select id="z4mtsts-filter-domain" class="w3-select">
+            <option value="">All domains</option>
+            <option value="action">action</option>
+            <option value="ajax">ajax</option>
+            <option value="autocomplete">autocomplete</option>
+            <option value="form">form</option>
+            <option value="list">list</option>
+            <option value="modal">modal</option>
+            <option value="serverSideCore">serverSideCore</option>
+            <option value="z4musers">z4musers</option>
+            <option value="z4mprofiles">z4mprofiles</option>
+        </select>
+    </div>
+    <div class="w3-col l2">
+        <input id="z4mtsts-filter-testcase" class="w3-input" type="number" min="0" placeholder="all tests">
+    </div>
+    <div class="w3-col l8">
+        <button id="z4mtsts-bt-run" class="w3-btn w3-theme-action" type="button"><i class="fa fa-play"></i> Run</button>
+    </div>
+</div>
+<div id="z4mtsts-console" class="w3-input w3-border w3-margin-top w3-darkgrey w3-hide"></div>
 <div id="z4mtsts-progress" class="w3-modal" style="z-index: 10">
     <div class="w3-modal-content">
         <div class="w3-container">
@@ -92,7 +113,9 @@ ZnetDK version: <b><?php echo ZNETDK_VERSION; ?></b>
             var currentViewId = znetdkMobile.content.getDisplayedViewId(),
                 progressEl = $('#z4mtsts-progress'),
                 closeButton = progressEl.find('button.cancel'),
-                startButton = $(this), stopButton = $('#z4mtsts-bt-stop');
+                startButton = $(this), stopButton = $('#z4mtsts-bt-stop'),
+                selectedDomain = $('#z4mtsts-filter-domain').val(),
+                selectedTestCaseIdx = $('#z4mtsts-filter-testcase').val();
             // Reset
             $('#z4mtsts-console').empty().addClass('w3-hide');
             progressEl.find('.status')
@@ -115,7 +138,9 @@ ZnetDK version: <b><?php echo ZNETDK_VERSION; ?></b>
                 progressEl.find('.test-count').text(runState.total);
             });
             z4mTestRunner.setUIContainerId('z4mtsts-ui-container');
-            z4mTestRunner.run().finally(function(){ 
+            z4mTestRunner.run(selectedDomain === '' ? undefined : selectedDomain,
+                    selectedTestCaseIdx === '' ? undefined : parseInt(selectedTestCaseIdx, 10))
+                    .finally(function(){ 
                 stopButton.prop('disabled', false).addClass('w3-hide');
                 startButton.prop('disabled', false);
                 znetdkMobile.content.displayView(currentViewId);

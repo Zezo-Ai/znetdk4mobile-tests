@@ -17,8 +17,8 @@
  * --------------------------------------------------------------------
  * ZnetDK Javascript library for mobile page layout
  *
- * File version: 1.3
- * Last update: 08/07/2024
+ * File version: 1.4
+ * Last update: 06/29/2025
  */
 /* global z4m, Promise */
 
@@ -41,16 +41,16 @@
  *   The default context properties are:
  *   - UIContainerId: id in the DOM of the HTML container dedicated to UI
  *     testing.
- *   - isUIContainerEmptiedBeforeNextTest: if set to false (default value), the
+ *   - isUIContainerEmptiedBeforeNextTest: if set to true (default value), the
  *     UI container is emptied before execution of the next step.
  *   - prevTestCaseState: execution state of the previous test case (true, false
  *     or -1).
  *   - toggleUIContainer: function to call for showing or hiding the UI
  *     Container.
  *   - pause: stop test case execution for the specified delay in ms. Must be
- *     prefixed by the async JS statement.
- *   - areValuesEqual: function to call to get the expected and obtained values
- *     when test case failed.
+ *     prefixed by the await JS statement.
+ *   - areValuesEqual: function to compare values and in case of error, to get
+ *     the value mismatch.
  *   - prevTestCaseMessage = error message to display when test case failed or
  *     was not testable;
  */
@@ -189,7 +189,7 @@ z4mTestCases = {
                     body: formData,
                     credentials: 'same-origin'
                 }), result = await request.text();
-                return request.status === 200 
+                return request.status === 200
                     && typeof result === 'string'
                     && result === 'Content of the text file.';
             }
@@ -211,7 +211,7 @@ z4mTestCases = {
                     body: formData,
                     credentials: 'same-origin'
                 }), result = await request.text();
-                return request.status === 200 
+                return request.status === 200
                     && typeof result === 'string'
                     && result.indexOf('Content of the CSV file.') > -1;
             }
@@ -219,7 +219,7 @@ z4mTestCases = {
         {
             name: 'A - Fetch POST request without UI token', //4
             description: 'Test token mismatch when a fetch request is sent to \'z4mtsts_ui_ctl:ajax1\'',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var formData = new FormData();
                 formData.append('control', 'z4mtsts_ui_ctl');
@@ -232,7 +232,7 @@ z4mTestCases = {
                     body: formData,
                     credentials: 'same-origin'
                 }), result = await request.json();
-                return request.status === 200 
+                return request.status === 200
                     && typeof result === 'object'
                     && result.hasOwnProperty('success')
                     && result.success === false
@@ -243,7 +243,7 @@ z4mTestCases = {
         {
             name: 'A - Fetch POST request with controller and action as GET parameters',//5
             description: 'Test if POST request with controller and action as GET parameters is allowed through a fetch request sent to \'z4mtsts_ui_ctl:ajax1\'',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var formData = new FormData();
                 formData.append('uitk', $('body').data('ui-token'));
@@ -257,7 +257,7 @@ z4mTestCases = {
                     body: formData,
                     credentials: 'same-origin'
                 }), result = await request.json();
-                return request.status === 200 
+                return request.status === 200
                     && typeof result === 'object'
                     && result.hasOwnProperty('success')
                     && result.success === true;
@@ -265,7 +265,7 @@ z4mTestCases = {
         },{
             name: 'A - Fetch GET request CFG_VIEW_PAGE_RELOAD=TRUE, controller and action specified',//6
             description: 'Testing if GET request is working when controller and action are specified as GET parameters.',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url + '?control=z4mtsts_testview1&action=show';
                 if (ajaxURL.hasOwnProperty('paramName')) {
@@ -285,14 +285,14 @@ z4mTestCases = {
         },{
             name: 'A - Fetch GET request CFG_VIEW_PAGE_RELOAD=TRUE, existing SEO string specified in URL',//7
             description: 'Testing if GET request is working when SEO string is specified in URL.',
-            testFn: async function(context) {                
+            testFn: async function(context) {
                 context.prevTestCaseMessage = 'Not testable: appl=test not taken in account if SEO string in URL.';
                 return -1;
             }
         },{
             name: 'E - Fetch GET request CFG_VIEW_PAGE_RELOAD=TRUE, error 500 (PHP runtime error)',//8
             description: 'Testing if GET request returns generic message when a critical error occurres in the requested view.',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url + '?control=z4mtsts_testview2&action=show';
                 if (ajaxURL.hasOwnProperty('paramName')) {
@@ -303,31 +303,31 @@ z4mTestCases = {
                     method: 'GET',
                     credentials: 'same-origin'
                 }), result = await request.text();
-                return request.status === 500 
+                return request.status === 500
                         && typeof result === 'string'
                         && result.indexOf('Technical hitch') > -1
                         && result.indexOf('Please retry later.') > -1
                         && result.indexOf('</html>') > -1;
             }
         },{
-            name: 'E - Fetch GET error 403 (missing page)',//9
-            description: 'Testing if GET request to a missing page \'byebye\' returns status 403 and expected \'httperror.php\' view.',
-            testFn: async function() {                
+            name: 'E - Fetch GET error 404 (page not found)',//9
+            description: 'Testing if GET request to a missing page \'byebye\' returns status 404 and expected \'httperror.php\' view.',
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url.replace('index.php', '') + 'byebye';
                 const request = await window.fetch(fullURL, {
                     method: 'GET',
                     credentials: 'same-origin'
                 }), result = await request.text();
-                return request.status === 403
+                return request.status === 404
                         && typeof result === 'string'
-                        && result.indexOf('HTTP Error 403!') > -1
+                        && result.indexOf('HTTP Error 404!') > -1
                         && result.indexOf('</html>') > -1;
             }
         },{
             name: 'E - Fetch GET error 403 (forbidden)',//10
             description: 'Testing if GET request to a forbidden page returns status 403 and expected \'httperror.php\' view.',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url.replace('index.php', '') + 'engine/';
                 const request = await window.fetch(fullURL, {
@@ -342,7 +342,7 @@ z4mTestCases = {
         },{
             name: 'E - Fetch GET error 500 (config error PRM-004)',//11
             description: 'Test if GET request to App with CFG_VIEW_PAGE_RELOAD=true & CFG_AUTHENT_REQUIRED=true returns status 500.',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url;
                 fullURL += '?CFG_VIEW_PAGE_RELOAD=true';
@@ -362,7 +362,7 @@ z4mTestCases = {
         },{
             name: 'E - Fetch GET error 500 (config error PRM-005)',//12
             description: 'Test if GET request to App with CFG_VIEW_PAGE_RELOAD=true & CFG_VIEW_PRELOAD=true returns status 500.',
-            testFn: async function() {                
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url;
                 fullURL += '?CFG_VIEW_PAGE_RELOAD=true';
@@ -380,10 +380,10 @@ z4mTestCases = {
                         && result.indexOf('</html>') > -1;
             }
         },{
-            name: 'E - Fetch GET error 500 (config error PRM-006)',//13
+            name: 'E - Fetch GET error 500 (config error CTL-002)',//13
             description: 'Test if GET request to App with CFG_VIEW_PAGE_RELOAD=true & CFG_PAGE_LAYOUT=office returns status 500.',
-            // Extra errors in 'errors.log': LAY-007 and DEP-001
-            testFn: async function() {                
+            // Extra errors in 'errors.log': PRM-006 and LAY-002
+            testFn: async function() {
                 const ajaxURL = z4m.ajax.getParamsFromAjaxURL();
                 var fullURL = ajaxURL.url;
                 fullURL += '?CFG_VIEW_PAGE_RELOAD=true';
@@ -397,8 +397,7 @@ z4mTestCases = {
                 }), result = await request.text();
                 return request.status === 500
                         && typeof result === 'string'
-                        && result.indexOf('HTTP Error 500!') > -1
-                        && result.indexOf('</html>') > -1;
+                        && result.indexOf('CTL-002') > -1;
             }
         },
         {
@@ -515,23 +514,27 @@ z4mTestCases = {
                 context.isUIContainerEmptiedBeforeNextTest = true;
                 context.toggleUIContainer();
                 $('#' + context.UIContainerId).append('<input id="my-autocomplete" class="w3-input" type="search">');
-                return await new Promise((resolve) => {
-                    var suggestions = [];
-                    z4m.autocomplete.make('#my-autocomplete', {
-                        controller: 'z4mtsts_ui_ctl',
-                        action: 'autocomplete1'
-                    }, null, function(item){
-                        suggestions.push(item.label);
-                        if (suggestions.length === 3) {
-                            resolve(suggestions[0] === 'abc'
-                                    && suggestions[1] === 'abcd'
-                                    && suggestions[2] === 'abcde');
-                        }
-                        return item.label;
-                    });
-                    $('#my-autocomplete').val('abc');
-                    $('#my-autocomplete').trigger('input').trigger('focus');
+                z4m.autocomplete.make('#my-autocomplete', {
+                    controller: 'z4mtsts_ui_ctl',
+                    action: 'autocomplete1'
+                }, null, function(item){
+                    return '*' + item.label + '*';
                 });
+                $('#my-autocomplete').val('abc');
+                $('#my-autocomplete').trigger('focus');
+                await context.pause(1000);
+                const labels = [];
+                $('#my-autocomplete').next('ul').find('li').each(function(){
+                    labels.push($(this).text());
+                });
+                // 3 suggestions returned by the remote controller,
+                // Each suggestion label is rounded by asterisk characters
+                return context.areValuesEqual(
+                    labels.length, 3,
+                    labels[0], '*abc*',
+                    labels[1], '*abcd*',
+                    labels[2], '*abcde*'
+                );                
             }
         }, {
             name: 'N - Displaying suggestions',
@@ -543,14 +546,89 @@ z4mTestCases = {
                         controller: 'z4mtsts_ui_ctl',
                         action: 'autocomplete1'
                     }, function(selectedItem){
-                        resolve(selectedItem.label === 'abcd');
+                        // Selected value is 'abcde'
+                        resolve(context.areValuesEqual(
+                            selectedItem.label, 'abcd'
+                        ));
                     });
                     $('#my-autocomplete').val('abc');
-                    $('#my-autocomplete').trigger('input').trigger('focus');
+                    $('#my-autocomplete').trigger('focus');
                     setTimeout(function(){
                         $('#my-autocomplete').next('ul').find('li:nth-child(2)').trigger('click');
                     }, 1000);
                 });
+            }
+        }, {
+            name: 'N - Getting suggestion count',
+            description: 'Get the count of suggestions via the onSuggestionsCallback (version 3.5)',
+            testFn: async function(context) {
+                $('#' + context.UIContainerId).append('<input id="my-autocomplete" class="w3-input" type="search">');
+                return await new Promise((resolve) => {
+                    z4m.autocomplete.make('#my-autocomplete', {
+                        controller: 'z4mtsts_ui_ctl',
+                        action: 'autocomplete1'
+                    }, null, null, function(suggestionCount){
+                        // 3 suggestions returned
+                        resolve(context.areValuesEqual(
+                            suggestionCount, 3
+                        ));
+                    });
+                    $('#my-autocomplete').val('abc');
+                    $('#my-autocomplete').trigger('focus');
+                });
+            }
+        }, {
+            name: 'N - Is suggestion selected?',
+            description: 'After selecting a suggestion, the isSuggestion() method returns true',
+            testFn: async function(context) {
+                context.isUIContainerEmptiedBeforeNextTest = true;
+                context.toggleUIContainer();
+                $('#' + context.UIContainerId).append('<input id="my-autocomplete" class="w3-input" type="search">');
+                const myAutocomplete = z4m.autocomplete.make('#my-autocomplete', {
+                    controller: 'z4mtsts_ui_ctl',
+                    action: 'autocomplete1'
+                });
+                $('#my-autocomplete').val('abc');
+                $('#my-autocomplete').trigger('focus');
+                await context.pause(1000);
+                $('#my-autocomplete').next('ul').find('li:nth-child(2)').trigger('click');
+                await context.pause(1000);
+                // A suggestion has been selected
+                // And the last selected value is 'abcd'
+                return context.areValuesEqual(
+                    myAutocomplete.isSuggestion(), true,
+                    myAutocomplete.lastSelectedItem, 'abcd'
+                );
+            }
+        }, {
+            name: 'A - Last selected item is null after second change',
+            description: 'After selecting a suggestion, if input value is next changed, lastSelectedItem is null',
+            testFn: async function(context) {
+                context.isUIContainerEmptiedBeforeNextTest = true;
+                context.toggleUIContainer();
+                $('#' + context.UIContainerId).append('<input id="my-autocomplete" class="w3-input" type="search">');
+                const myAutocomplete = z4m.autocomplete.make('#my-autocomplete', {
+                    controller: 'z4mtsts_ui_ctl',
+                    action: 'autocomplete1'
+                });
+                $('#my-autocomplete').val('abc');
+                $('#my-autocomplete').trigger('focus');
+                await context.pause(1000);
+                $('#my-autocomplete').next('ul').find('li:nth-child(2)').trigger('click');
+                await context.pause(1000);
+                const firstIsSuggestion = myAutocomplete.isSuggestion(),
+                    firstSelectedItem = myAutocomplete.lastSelectedItem;
+                $('#my-autocomplete').val('ab');
+                $('#my-autocomplete').trigger('input');
+                await context.pause(1000);
+                // No suggestion has been selected since input value has changed
+                // And so the last selected value is null
+                return context.areValuesEqual(
+                    firstIsSuggestion, true,
+                    firstSelectedItem, 'abcd',
+                    myAutocomplete.isSuggestion(), false,
+                    myAutocomplete.lastSelectedItem, null
+                );                
             }
         }
     ],
@@ -994,6 +1072,7 @@ z4mTestCases = {
             description: 'Catches the onEdit event and returns false in the callback function to prevent modal dialog opening',
             testFn: async function(context) {
                 var dataList = z4m.list.make('#z4mtsts-data-list', false, false);
+                unBindRefreshEventOnViewDisplayed();
                 dataList.setModal('#z4mtsts-data-list-modal', true, null, function(){
                     // onEdit callback
                     return false; // Modal must not be opened
@@ -1007,6 +1086,13 @@ z4mTestCases = {
                 z4m.action.toggle();
                 // Check if modal is opened or not
                 return $('#z4mtsts-data-list-modal').is(':visible') === false;
+                // Avoid error "[z4m] Unable to get the horizontal menu item for the displayed view!"
+                // Datalist no longer refreshed after displaying the "Run the tests" view.
+                function unBindRefreshEventOnViewDisplayed() {
+                    const listViewId = z4m.content.getParentViewId(dataList.element);
+                    const afterViewDisplayEventName = z4m.navigation.events.afterViewDisplayName + '.z4m_list_' + listViewId;
+                    $('body').off(afterViewDisplayEventName);
+                }
             }
         }
     ],
@@ -1684,6 +1770,16 @@ z4mTestCases = {
                     en: 'Enabled',
                     es: 'Activado'
                 };
+                context.custom_z4musers.labelDisabled =  {
+                    fr: 'Désactivé',
+                    en: 'Disabled',
+                    es: 'Desactivado'
+                };
+                context.custom_z4musers.labelArchived =  {
+                    fr: 'Archivé',
+                    en: 'Archived',
+                    es: 'Archivado'
+                };
                 context.custom_z4musers.labelFullMenuAccess = {
                     fr: 'Complet',
                     en: 'Full',
@@ -1770,6 +1866,7 @@ z4mTestCases = {
                 // Add new user
                 return await new Promise((resolve) => {
                     const userInfos = context.custom_z4musers.userInfos,
+                        labelEnabled = context.custom_z4musers.labelEnabled,
                         labelFullMenuAccess = context.custom_z4musers.labelFullMenuAccess,
                         getIsoDate = context.custom_z4musers.getIsoDate;
                     $('body').off('afterpageloaded.z4mtsts');
@@ -1788,8 +1885,8 @@ z4mTestCases = {
                             rowCells.first().find('span').eq(1).text().trim(), userInfos.notes,
                             rowCells.eq(1).find('a').first().text().trim(), userInfos.user_email,
                             rowCells.eq(1).find('a').eq(1).text().trim(), userInfos.user_phone,
-                            rowCells.eq(2).find('.w3-tag').hasClass('user-enabled-1'), true,
-                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text()),
+                            rowCells.eq(2).find('.w3-tag').first().text(), labelEnabled[context.lang],
+                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text().trim()),
                                 context.custom_z4musers.expirationISODate,
                             rowCells.eq(3).find('span').first().text(), labelFullMenuAccess[context.lang],
                             rowCells.eq(3).find('span.user-profiles').text(), 'Z4M Test Profile #2'
@@ -1823,6 +1920,7 @@ z4mTestCases = {
                         const userInfos = context.custom_z4musers.userInfos,
                             expirationISODate = context.custom_z4musers.expirationISODate,
                             existingProfiles = context.custom_z4musers.existingProfiles,
+                            labelEnabled = context.custom_z4musers.labelEnabled,
                             labelFullMenuAccess = context.custom_z4musers.labelFullMenuAccess,
                             getIsoDate = context.custom_z4musers.getIsoDate;
                         $('body').off('afterpageloaded.z4mtsts');
@@ -1842,8 +1940,8 @@ z4mTestCases = {
                                     rowCells.first().find('span').eq(1).text().trim(), userInfos.notes,
                                     rowCells.eq(1).find('a').first().text().trim(), userInfos.user_email,
                                     rowCells.eq(1).find('a').eq(1).text().trim(), userInfos.user_phone,
-                                    rowCells.eq(2).find('.w3-tag').hasClass('user-enabled-1'), true,
-                                    getIsoDate(rowCells.eq(2).find('.expiration-date span').text()), expirationISODate,
+                                    rowCells.eq(2).find('.w3-tag').first().text(), labelEnabled[context.lang],
+                                    getIsoDate(rowCells.eq(2).find('.expiration-date span').text().trim()), expirationISODate,
                                     rowCells.eq(3).find('span').first().text(), labelFullMenuAccess[context.lang],
                                     rowCells.eq(3).find('span.user-profiles').text(), 'Z4M Test Profile #1, Z4M Test Profile #2'
                                 ));
@@ -1916,6 +2014,7 @@ z4mTestCases = {
                         expirationISODate = context.custom_z4musers.expirationISODate,
                         existingProfiles = context.custom_z4musers.existingProfiles,
                         labelFullMenuAccess = context.custom_z4musers.labelFullMenuAccess,
+                        labelArchived = context.custom_z4musers.labelArchived,
                         getIsoDate = context.custom_z4musers.getIsoDate;
                     $('body').off('afterpageloaded.z4mtsts');
                     $('body').one('afterpageloaded.z4mtsts', '#mzdk-user-list',
@@ -1933,14 +2032,14 @@ z4mTestCases = {
                             rowCells.first().find('span').eq(1).text().trim(), userInfos.notes,
                             rowCells.eq(1).find('a').first().text().trim(), userInfos.user_email,
                             rowCells.eq(1).find('a').eq(1).text().trim(), userInfos.user_phone,
-                            rowCells.eq(2).find('.w3-tag').hasClass('user-enabled--1'), true,
-                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text()), expirationISODate,
+                            rowCells.eq(2).find('.w3-tag').first().text(), labelArchived[context.lang],
+                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text().trim()), expirationISODate,
                             rowCells.eq(3).find('span').first().text(), labelFullMenuAccess[context.lang],
                             rowCells.eq(3).find('span.user-profiles').text(), 'Z4M Test Profile #1, Z4M Test Profile #2'
                         ));
                     });
                     // Click the Archived status filter
-                    $('#mzdk-user-list-filter-status-archived').trigger('click');
+                    $('#mzdk-user-list-filter input[name=status_filter][value="-1"]').trigger('click');
                 });
             }
         }, {
@@ -1991,6 +2090,7 @@ z4mTestCases = {
                     const userInfos = context.custom_z4musers.userInfos,
                         expirationISODate = context.custom_z4musers.expirationISODate,
                         existingProfiles = context.custom_z4musers.existingProfiles,
+                        labelDisabled = context.custom_z4musers.labelDisabled,
                         labelFullMenuAccess = context.custom_z4musers.labelFullMenuAccess,
                         getIsoDate = context.custom_z4musers.getIsoDate;
                     $('body').off('afterpageloaded.z4mtsts');
@@ -2009,14 +2109,14 @@ z4mTestCases = {
                             rowCells.first().find('span').eq(1).text().trim(), userInfos.notes,
                             rowCells.eq(1).find('a').first().text().trim(), userInfos.user_email,
                             rowCells.eq(1).find('a').eq(1).text().trim(), userInfos.user_phone,
-                            rowCells.eq(2).find('.w3-tag').hasClass('user-enabled-0'), true,
-                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text()), expirationISODate,
+                            rowCells.eq(2).find('.w3-tag').first().text(), labelDisabled[context.lang],
+                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text().trim()), expirationISODate,
                             rowCells.eq(3).find('span').first().text(), labelFullMenuAccess[context.lang],
                             rowCells.eq(3).find('span.user-profiles').text(), 'Z4M Test Profile #1, Z4M Test Profile #2'
                         ));
                     });
-                    // Click the Archived status filter
-                    $('#mzdk-user-list-filter-status-disabled').trigger('click');
+                    // Click the Disabled status filter
+                    $('#mzdk-user-list-filter input[name=status_filter][value="0"]').trigger('click');
                 });
             }
         }, {
@@ -2067,6 +2167,7 @@ z4mTestCases = {
                     const userInfos = context.custom_z4musers.userInfos,
                         expirationISODate = context.custom_z4musers.expirationISODate,
                         existingProfiles = context.custom_z4musers.existingProfiles,
+                        labelEnabled = context.custom_z4musers.labelEnabled,
                         labelFullMenuAccess = context.custom_z4musers.labelFullMenuAccess,
                         getIsoDate = context.custom_z4musers.getIsoDate;
                     $('body').off('afterpageloaded.z4mtsts');
@@ -2085,14 +2186,14 @@ z4mTestCases = {
                             rowCells.first().find('span').eq(1).text().trim(), userInfos.notes,
                             rowCells.eq(1).find('a').first().text().trim(), userInfos.user_email,
                             rowCells.eq(1).find('a').eq(1).text().trim(), userInfos.user_phone,
-                            rowCells.eq(2).find('.w3-tag').hasClass('user-enabled-1'), true,
-                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text()), expirationISODate,
+                            rowCells.eq(2).find('.w3-tag').first().text(), labelEnabled[context.lang],
+                            getIsoDate(rowCells.eq(2).find('.expiration-date span').text().trim()), expirationISODate,
                             rowCells.eq(3).find('span').first().text(), labelFullMenuAccess[context.lang],
                             rowCells.eq(3).find('span.user-profiles').text(), 'Z4M Test Profile #1, Z4M Test Profile #2'
                         ));
                     });
-                    // Click the Archived status filter
-                    $('#mzdk-user-list-filter-status-enabled').trigger('click');
+                    // Click the Enabled status filter
+                    $('#mzdk-user-list-filter input[name=status_filter][value="1"]').trigger('click');
                 });
             }
         }, {
