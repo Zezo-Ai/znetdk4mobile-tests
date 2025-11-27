@@ -17,8 +17,8 @@
  * --------------------------------------------------------------------
  * ZnetDK Javascript library for mobile page layout
  *
- * File version: 1.4
- * Last update: 06/29/2025
+ * File version: 1.5
+ * Last update: 11/15/2025
  */
 /* global z4m, Promise */
 
@@ -1632,7 +1632,7 @@ z4mTestCases = {
                             if (rowEl.length !== 1) {
                                 resolve(false);
                             }
-                            const rowCells = rowEl.find('a.edit > div');
+                            const rowCells = rowEl.find('div > div');
                             resolve(context.areValuesEqual(
                                     // First cell value: profile name
                                     rowCells.first().text().trim(), '4 Test',
@@ -1679,7 +1679,7 @@ z4mTestCases = {
                             if (rowEl.length !== 1) {
                                 resolve(context.areValuesEqual(rowEl.length, 1));
                             }
-                            const rowCells = rowEl.find('a.edit > div');
+                            const rowCells = rowEl.find('div > div');
                             resolve(context.areValuesEqual(
                                     // First cell value: profile name
                                     rowCells.first().text().trim(), '4 Test',
